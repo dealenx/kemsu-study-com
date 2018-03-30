@@ -10,7 +10,8 @@ using namespace std;
 
 // Абстрактные интерфейсы
 interface IUnknown__ {
-	virtual HRESULT __stdcall QueryInterface(const IID& iid, void** ppv) = 0;
+	//virtual HRESULT __stdcall QueryInterface(const IID& iid, void** ppv) = 0;
+	virtual HRESULT __stdcall QueryInterface__(int iid, void** ppv) = 0;
 	virtual ULONG __stdcall AddRef() = 0;
 	virtual ULONG __stdcall Release() = 0;
 };
@@ -18,7 +19,7 @@ interface IX: IUnknown__ {
 	virtual void __stdcall Fx1() = 0;
 	virtual void __stdcall Fx2() = 0;
 };
-interface IY {
+interface IY: IUnknown__ {
 	virtual void __stdcall Fy1() = 0;
 	virtual void __stdcall Fy2() = 0;
 };
@@ -32,8 +33,19 @@ class CA : public IX, public IY {
 	virtual void __stdcall Fy1() { cout << "CA::Fy1" << endl; }
 	virtual void __stdcall Fy2() { cout << "CA::Fy2" << endl; }
 
-	HRESULT __stdcall QueryInterface(const IID& iid, void** ppv) {
-		cout << "CA::QueryInterface2" << endl;
+	HRESULT __stdcall QueryInterface__(/*const IID& iid*/ int iid, void** ppv) {
+		cout << "CA::QueryInterface" << endl;
+
+		if(iid == 0) {
+			*ppv = (void *)((IX*)this);
+		} else if(iid = 1) {
+			*ppv = (void *)((IY*)this);
+		}
+		else {
+			*ppv = (void *)((IX*)this);
+			return 1;
+		}
+		return 0;
 	}
 
 	ULONG __stdcall AddRef() {
@@ -43,6 +55,12 @@ class CA : public IX, public IY {
 		cout << "CA::Release" << endl;
 	}
 };
-
+/*
+IUnknown__ * CreateInstance() {
+	IUnknown__ * pI = static_cast<IY*>(new CA);
+	pI->AddRef();
+	return pI;
+}
+*/
 
 #endif
