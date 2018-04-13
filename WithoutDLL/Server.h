@@ -1,3 +1,6 @@
+#pragma once
+#define DllExport  __declspec( dllexport )
+
 #ifndef SERVER_H_INCLUDED
 #define SERVER_H_INCLUDED
 
@@ -9,25 +12,23 @@
 using namespace std;
 
 // Абстрактные интерфейсы
-interface IUnknown__ {
+interface  IUnknown__ {
 	//virtual HRESULT __stdcall QueryInterface(const IID& iid, void** ppv) = 0;
-	
+	//IUnknown__ * CreateInstance();
 	virtual HRESULT __stdcall QueryInterface__(int iid, void** ppv) = 0;
 	virtual ULONG __stdcall AddRef() = 0;
 	virtual ULONG __stdcall Release() = 0;
-
 	
 };
-interface IX: IUnknown__ {
+interface DllExport IX: IUnknown__ {
 	virtual void __stdcall Fx1() = 0;
 	virtual void __stdcall Fx2() = 0;
 };
-interface IY: IUnknown__ {
+interface DllExport IY: IUnknown__ {
 	virtual void __stdcall Fy1() = 0;
 	virtual void __stdcall Fy2() = 0;
-	
 };
-// Реализация интерфейса
+// Реализация интерфейса 
 class CA : public IX, public IY {
 	public:
 	// Реализация интерфейса IX
@@ -59,6 +60,28 @@ class CA : public IX, public IY {
 		cout << "CA::Release" << endl;
 	}
 };
+
+
+extern "C" __declspec(dllexport) HRESULT __stdcall  CreateInstance__(int iid, void** ppv);
+
+BOOL WINAPI DllMain(HINSTANCE hDll, DWORD dwReason, LPVOID lpReserved)
+/*
+HRESULT __stdcall CoGetClassObject( int iid, void** ppv) {
+		cout << "CA::QueryInterface" << endl;
+
+		if(iid == 0) {
+			*ppv = (void *)((IX*)this);
+		} else if(iid = 1) {
+			*ppv = (void *)((IY*)this);
+		}
+		else {
+			*ppv = (void *)((IX*)this);
+			return 1;
+		}
+		return 0;
+	}
+*/
+
 
 
 #endif
