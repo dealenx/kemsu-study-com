@@ -1,6 +1,0 @@
-#ifndef ABSTRACTSERVER_H_INCLUDED
-#define ABSTRACTSERVER_H_INCLUDED
-
-
-
-#endif

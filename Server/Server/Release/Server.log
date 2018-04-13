@@ -1,0 +1,2 @@
+﻿  Server.cpp
+c:\work\kemsu-study-com\server\server\Server.h(29): error C2059: синтаксическая ошибка: __declspec(dllexport)

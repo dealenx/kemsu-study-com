@@ -11,9 +11,12 @@ using namespace std;
 // Абстрактные интерфейсы
 interface IUnknown__ {
 	//virtual HRESULT __stdcall QueryInterface(const IID& iid, void** ppv) = 0;
+	
 	virtual HRESULT __stdcall QueryInterface__(int iid, void** ppv) = 0;
 	virtual ULONG __stdcall AddRef() = 0;
 	virtual ULONG __stdcall Release() = 0;
+
+	
 };
 interface IX: IUnknown__ {
 	virtual void __stdcall Fx1() = 0;
@@ -22,6 +25,7 @@ interface IX: IUnknown__ {
 interface IY: IUnknown__ {
 	virtual void __stdcall Fy1() = 0;
 	virtual void __stdcall Fy2() = 0;
+	
 };
 // Реализация интерфейса
 class CA : public IX, public IY {
@@ -55,12 +59,6 @@ class CA : public IX, public IY {
 		cout << "CA::Release" << endl;
 	}
 };
-/*
-IUnknown__ * CreateInstance() {
-	IUnknown__ * pI = static_cast<IY*>(new CA);
-	pI->AddRef();
-	return pI;
-}
-*/
+
 
 #endif

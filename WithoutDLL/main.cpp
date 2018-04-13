@@ -4,7 +4,7 @@ using namespace std;
 
 // Клиент
 int main() {
-    IUnknown__ * PI = static_cast<IY*>(new CA);
+    IUnknown__ * PI = CreateInstance();
     IY * PY;
 
     int res = PI -> QueryInterface__(1,  (void **)&PY);

@@ -1,0 +1,3 @@
+EXPORTS
+   newtestdll = _Z10newtestdllbi
+   deletetestdll = _Z13deletetestdllP13TestInterface
