@@ -1,5 +1,4 @@
 #pragma once
-#define DllExport  __declspec( dllexport )
 
 #ifndef SERVER_H_INCLUDED
 #define SERVER_H_INCLUDED
@@ -12,7 +11,7 @@
 using namespace std;
 
 // Абстрактные интерфейсы
-interface  IUnknown__ {
+interface IUnknown__ {
 	//virtual HRESULT __stdcall QueryInterface(const IID& iid, void** ppv) = 0;
 	//IUnknown__ * CreateInstance();
 	virtual HRESULT __stdcall QueryInterface__(int iid, void** ppv) = 0;
@@ -20,11 +19,11 @@ interface  IUnknown__ {
 	virtual ULONG __stdcall Release() = 0;
 	
 };
-interface DllExport IX: IUnknown__ {
+interface IX: IUnknown__ {
 	virtual void __stdcall Fx1() = 0;
 	virtual void __stdcall Fx2() = 0;
 };
-interface DllExport IY: IUnknown__ {
+interface IY: IUnknown__ {
 	virtual void __stdcall Fy1() = 0;
 	virtual void __stdcall Fy2() = 0;
 };
@@ -64,7 +63,7 @@ class CA : public IX, public IY {
 
 extern "C" __declspec(dllexport) HRESULT __stdcall  CreateInstance__(int iid, void** ppv);
 
-BOOL WINAPI DllMain(HINSTANCE hDll, DWORD dwReason, LPVOID lpReserved)
+
 /*
 HRESULT __stdcall CoGetClassObject( int iid, void** ppv) {
 		cout << "CA::QueryInterface" << endl;
@@ -81,6 +80,21 @@ HRESULT __stdcall CoGetClassObject( int iid, void** ppv) {
 		return 0;
 	}
 */
+
+class IFace{
+    virtual bool Foo() = 0;
+};
+
+
+IFace *  MyConstructor();
+
+
+class  MyClass_Mock : public IFace
+{
+// IFace
+public:
+  virtual bool Foo() = 0;
+};
 
 
 
